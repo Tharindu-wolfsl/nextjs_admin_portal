@@ -1,26 +1,32 @@
 {
-  "name": "next_admin_portal",
+  "name": "nextjs_admin_portal",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migration:create": "dotenv -- sequelize-cli migration:create",
+    "migrate": "dotenv -- sequelize-cli db:migrate",
+    "migration:rollback": "dotenv -- sequelize-cli db:migrate:undo",
+    "migration:rollback:all": "dotenv -- sequelize-cli db:migrate:undo:all"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "next": "14.2.18",
+    "@sequelize/postgres": "^7.0.0-alpha.43",
+    "next": "15.0.3",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "19.0.0-rc-66855b96-20241106",
+    "react-dom": "19.0.0-rc-66855b96-20241106",
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.4.4",
     "eslint": "^8",
-    "eslint-config-next": "14.2.18",
+    "eslint-config-next": "15.0.3",
     "postcss": "^8",
+    "sequelize-cli": "^6.6.2",
     "tailwindcss": "^3.4.1"
   }
 }
