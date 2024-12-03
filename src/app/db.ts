@@ -5,6 +5,6 @@ import {options} from "../../database/config/config.mjs"
 const dbOptions = <SequelizeOptions>options;
 dbOptions.dialectModule = require("pg");
 
-const sequelize =  new Sequelize(dbOptions);
+const sequelize = new Sequelize(dbOptions);
 
 export default sequelize;
