@@ -14,13 +14,15 @@
   },
   "dependencies": {
     "@sequelize/postgres": "^7.0.0-alpha.43",
+    "bcrypt": "^5.1.1",
     "next": "15.0.3",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "sequelize": "^6.37.5",
-    "sequelize-typescript": "^2.1.6"
+    "sequelize-typescript": "^2.1.6",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/react": "18.3.12",
