@@ -5,11 +5,11 @@ import User from '../models/User';
 export const dynacmic = 'force-dynamic';
 
 async function getUsers(params) {
-    const users = User.findAll();
+    const users = await User.findAll();
     return {users};
 }
 async function page() {
-    const {users} = await getUsers();
+    const {users} = await getUsers();    
   return (
     <>
         <h1>User List</h1>
