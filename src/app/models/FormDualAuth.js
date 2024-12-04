@@ -19,6 +19,8 @@ const FormDualAuth = sequelize.define('User', {
         type: DataTypes.STRING,
     }, summary: {
         type: DataTypes.STRING,
+    }, summary_data: {
+        type: DataTypes.STRING,
     }, permission: {
         type: DataTypes.STRING,
     }, created_by: {

@@ -1,14 +1,16 @@
-import FormDualAuth from "@/app/models/FormDualAuth";
+import FormDualAuth from "../../models/FormDualAuth";
 
 class DualAuth {
-    constructor({form_name, method, model_type, repository_type, new_payload, summary, permission, created_by, approved_by, status, approved_at}) {
+    constructor({form_name, method, model_type, repository_type, new_payload,old_payload, summary, summary_data, permission, created_by, approved_by, status, approved_at}) {
         Object.assign(this, {
             form_name,
             method,
             model_type,
             repository_type,
             new_payload,
+            old_payload,
             summary,
+            summary_data,
             permission,
             created_by,
             approved_by,
@@ -24,6 +26,8 @@ class DualAuth {
             model_type: this.model_type,
             repository_type: this.repository_type,
             new_payload: this.new_payload,
+            old_payload: this.old_payload,
+            summary_data: this.summary_data,
             summary: this.summary,
             permission: this.permission,
             created_by: this.created_by,
