@@ -39,6 +39,7 @@ export const POST = async (request) => {
             status: false,
         };
 
+
         const dualAuth =  await new DualAuth(data).create();
         return new Response({dualAuth}, {status: 200});
     } catch (err) {

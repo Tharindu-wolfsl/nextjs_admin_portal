@@ -8,4 +8,4 @@ class FormsEnum {
     }
 }
 
-export default FormsEnum;
+module.exports = FormsEnum;
