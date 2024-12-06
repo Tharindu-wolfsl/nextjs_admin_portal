@@ -28,7 +28,7 @@ const FormDualAuth = sequelize.define('User', {
     }, approved_by: {
         type: DataTypes.STRING,
     }, status: {
-        type: DataTypes.BOOLEAN, defaultValue: true
+        type: DataTypes.ENUM('PENDING', 'APPROVED', 'REJECTED'), defaultValue: 'PENDING'
     }, approved_at: {
         type: DataTypes.DATE,
     }

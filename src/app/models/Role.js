@@ -1,5 +1,5 @@
 import {Model, DataTypes} from "sequelize";
-import sequelize from "../db.js";
+import sequelize from "../db.ts";
 
 const Role = sequelize.define('Role', {
     // Model attributes are defined here

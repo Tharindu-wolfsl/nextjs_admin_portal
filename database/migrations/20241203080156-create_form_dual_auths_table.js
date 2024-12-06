@@ -27,7 +27,7 @@ module.exports = {
             }, approved_by: {
                 type: Sequelize.STRING,
             }, status: {
-                type: Sequelize.BOOLEAN, defaultValue: true
+                type: Sequelize.ENUM('PENDING', 'APPROVED', 'REJECTED'), defaultValue: 'PENDING',
             }, approved_at: {
                 type: Sequelize.DATE,
             }, summary_data: {
