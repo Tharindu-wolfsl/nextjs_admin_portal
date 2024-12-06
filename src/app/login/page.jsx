@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginForm from '../../ui/login-form';
+import LoginForm from '../ui/login-form';
 
 function Page(props) {
     return (
