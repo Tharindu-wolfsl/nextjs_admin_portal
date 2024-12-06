@@ -8,4 +8,5 @@ class PermissionCategory {
         return [PermissionCategory.USER_MANAGEMENT.value].includes(category);
     }
 }
-export default PermissionCategory;
+
+module.exports = PermissionCategory;

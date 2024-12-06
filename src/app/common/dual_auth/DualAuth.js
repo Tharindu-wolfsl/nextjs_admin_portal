@@ -1,8 +1,25 @@
 import FormDualAuth from "../../models/FormDualAuth";
+import Models from "../../common/Models";
 
 class DualAuth {
-    constructor({form_name, method, model_type, repository_type, new_payload,old_payload, summary, summary_data, permission, created_by, approved_by, status, approved_at}) {
+    constructor({
+                    id,
+                    form_name,
+                    method,
+                    model_type,
+                    repository_type,
+                    new_payload,
+                    old_payload,
+                    summary,
+                    summary_data,
+                    permission,
+                    created_by,
+                    approved_by,
+                    status,
+                    approved_at
+                }) {
         Object.assign(this, {
+            id,
             form_name,
             method,
             model_type,
@@ -35,6 +52,37 @@ class DualAuth {
             status: this.status,
             approved_at: this.approved_at,
         });
+    }
+
+    async action(status) {
+        try {
+            let response = [];
+            const DualAuth = await FormDualAuth.findByPk(this.id);
+            let payload = DualAuth.new_payload ? JSON.parse(DualAuth.new_payload).data : {};
+            const Model = Models[DualAuth.model_type];
+            if (status === 'APPROVED') {
+                if (DualAuth.model_type !== '') {
+                    const response = await Model.create(payload);
+                    if (response) {
+                        DualAuth.set({
+                            status, approved_by: 1, approved_at: Date.now()
+                        });
+                        await DualAuth.save();
+                    } else {
+                        return false;
+                    }
+                }
+            } else if (status === 'REJECTED') {
+                DualAuth.set({
+                    status,
+                });
+                await DualAuth.save();
+            }
+            return true;
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
     }
 }
 

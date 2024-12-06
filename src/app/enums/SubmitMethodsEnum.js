@@ -16,4 +16,4 @@ class SubmitMethodsEnum {
         return [SubmitMethodsEnum.CREATE.value, SubmitMethodsEnum.UPDATE.value, SubmitMethodsEnum.DELETE.value].includes(method);
     }
 }
-export default SubmitMethodsEnum;
+module.exports = SubmitMethodsEnum;

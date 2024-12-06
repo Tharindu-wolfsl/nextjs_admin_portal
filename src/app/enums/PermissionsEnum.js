@@ -1,4 +1,4 @@
-import PermissionCategory from "../enums/PermissionCategory";
+const PermissionCategory = require("../enums/PermissionCategory");
 
 class PermissionsEnum {
     static VIEW_USER = {
@@ -50,4 +50,4 @@ class PermissionsEnum {
     }
 }
 
-export default PermissionsEnum;
+module.exports=PermissionsEnum;
