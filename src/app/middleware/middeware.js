@@ -25,10 +25,22 @@ export function middleware(req) {
     console.log("Encrypted Token:", encryptedToken);
 
     const { pathname, origin } = req.nextUrl;
+    let setIsTokenExpired = "false";
+
     try {
-        const decodedToken = jwt.verify(encryptedToken, JWT_SECRET); // Verify the token
-        console.log("Decoded Token:", decodedToken);
-        console.log("Token is valid");
+        const decodedToken = jwt.verify(encryptedToken, JWT_SECRET);
+        if(decodedToken.exp * 1000 < Date.now()) {
+            setIsTokenExpired="true";
+            console.log('token has expired');
+        } else {
+            setIsTokenExpired="false";
+            console.log('token has not expired');
+
+        }
+        // Verify the token
+        // const isTokenValid=tokenValidity(encryptedToken)
+        // console.log("Decoded Token:", decodedToken);
+        console.log(setIsTokenExpired);
 
         return new Response(JSON.stringify({ message: "Token is valid" }), {
             status: 200,
@@ -66,4 +78,6 @@ export function middleware(req) {
     // // Allow request to continue if no redirection is needed
     return NextResponse.next();
 }
+
+
 
