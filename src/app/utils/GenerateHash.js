@@ -8,7 +8,6 @@ class GenerateHash {
     async getHash() {
         return await bcrypt.hashSync(this.plaintext, this.saltRounds);
     }
-
     async comparePassword() {
         return await bcrypt.compareSync(this.plaintext, this.hash); // true
     }
