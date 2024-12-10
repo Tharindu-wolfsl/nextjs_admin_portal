@@ -1,5 +1,6 @@
 import FormDualAuth from "../../models/FormDualAuth";
 import Models from "../../common/Models";
+import SubmitMethodsEnum from "../../enums/SubmitMethodsEnum";
 
 class DualAuth {
     constructor({
@@ -59,30 +60,46 @@ class DualAuth {
             let response = [];
             const DualAuth = await FormDualAuth.findByPk(this.id);
             let payload = DualAuth.new_payload ? JSON.parse(DualAuth.new_payload).data : {};
+            const id = DualAuth.new_payload &&  JSON.parse(DualAuth.new_payload).id ? JSON.parse(DualAuth.new_payload).id : null;
             const Model = Models[DualAuth.model_type];
             if (status === 'APPROVED') {
                 if (DualAuth.model_type !== '') {
-                    const response = await Model.create(payload);
-                    if (response) {
-                        DualAuth.set({
-                            status, approved_by: 1, approved_at: Date.now()
-                        });
-                        await DualAuth.save();
-                    } else {
-                        return false;
+                    switch (DualAuth.method) {
+                        case SubmitMethodsEnum.CREATE.value :
+                            await Model.create(payload);
+                            await this.update_status(DualAuth, status)
+                            break;
+                        case SubmitMethodsEnum.UPDATE.value :
+                            let UpdateModel = await Model.findByPk(id);
+                            UpdateModel.set(payload);
+                            await UpdateModel.save();
+                            await this.update_status(DualAuth, status)
+                            break;
+                        case SubmitMethodsEnum.DELETE.value :
+                            let DeleteModel = await Model.findByPk(id);
+                            await DeleteModel.destroy();
+                            await this.update_status(DualAuth, status)
+                            break;
+                        default:
+                            return false;
                     }
                 }
             } else if (status === 'REJECTED') {
-                DualAuth.set({
-                    status,
-                });
-                await DualAuth.save();
+                await this.update_status(DualAuth, status)
             }
             return true;
         } catch (err) {
             console.error(err);
             return false;
         }
+    }
+
+    async update_status(DualAuth, status)
+    {
+        DualAuth.set({
+            status, approved_by: 1, approved_at: Date.now()
+        });
+        await DualAuth.save();
     }
 }
 

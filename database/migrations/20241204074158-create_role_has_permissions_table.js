@@ -11,9 +11,7 @@ module.exports = {
                     model: 'roles', key: 'id'
                 }
             }, permission_id: {
-                type: Sequelize.INTEGER, references: {
-                    model: 'permissions', key: 'id'
-                }
+                type: Sequelize.INTEGER,
             }, created_at: {
                 type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
             }, updated_at: {

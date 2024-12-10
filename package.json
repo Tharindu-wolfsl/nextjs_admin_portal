@@ -11,6 +11,7 @@
     "migrate": "dotenv -- sequelize-cli db:migrate",
     "migration:rollback": "dotenv -- sequelize-cli db:migrate:undo",
     "migration:rollback:all": "dotenv -- sequelize-cli db:migrate:undo:all",
+    "seeder:rollback:all": "dotenv -- sequelize-cli db:seed:undo:all",
     "seeder:create": "dotenv -- sequelize-cli seed:generate",
     "seed": "dotenv -- sequelize-cli db:seed:all"
   },

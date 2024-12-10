@@ -9,31 +9,26 @@ export const POST = async (request) => {
     try {
         const formData = await request.formData();
         const name = formData.get('name');
-        const email = formData.get('email');
-        const password = await new GenerateHash({plaintext : process.env.DEFAULT_USER_PW, saltRounds: Number(process.env.SALT_ROUNDS) }).getHash();
-        // const password = formData.get('password');
-        const isUserExists = await User.findOne({where: {email}});
-        if (isUserExists) {
-            return new Response(JSON.stringify({error:'Email already exist!'}), {status: 400});
-        }
+        const role_permission = formData.get('role_permission');
+
         const new_payload = {
             data: {
-                name, email, password
+                name, role_permission
             }
         }
         const summary_data = {
             common: {
-                Name: name, Email: email
+                Name: name, Permissions: role_permission
             }
         }
         const data = {
-            form_name: FormsEnum.USER_MANAGEMENT.value,
+            form_name: FormsEnum.ROLE_MANAGEMENT.value,
             method: SubmitMethodsEnum.CREATE.value,
-            model_type: 'User',
+            model_type: 'Role',
             new_payload: JSON.stringify(new_payload),
-            summary: "Create New User",
+            summary: "Create New Role",
             summary_data: JSON.stringify(summary_data),
-            permission: PermissionsEnum.CREATE_USER.value,
+            permission: PermissionsEnum.CREATE_ROLE.value,
             created_by: 1,
         };
 
@@ -41,14 +36,5 @@ export const POST = async (request) => {
         return new Response(JSON.stringify({message:'Success!', data:dualAuth}), {status: 200});
     } catch (err) {
         return new Response(JSON.stringify({message:'Something went wrong!', error: err}), {status: 500});
-    }
-}
-
-export const GET = async (request) => {
-    try {
-        const data = await User.findAll();
-        return new Response(JSON.stringify({message: 'success', data}), {status: 200});
-    } catch (error) {
-        return new Response(JSON.stringify({message: 'Something went wrong!', error: error}), {status: 500});
     }
 }

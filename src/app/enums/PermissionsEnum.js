@@ -1,6 +1,8 @@
 const PermissionCategory = require("../enums/PermissionCategory");
 
 class PermissionsEnum {
+
+    //-------------User Management---------------
     static VIEW_USER = {
         value: "view-user",
         label: "View User",
@@ -37,6 +39,43 @@ class PermissionsEnum {
         category: PermissionCategory.USER_MANAGEMENT.value,
     };
 
+    //-------------Role Management---------------
+    static VIEW_ROLE = {
+        value: "view-role",
+        label: "View Role",
+        category: PermissionCategory.ROLE_MANAGEMENT.value,
+    };
+    static CREATE_ROLE = {
+        value: "create-role",
+        label: "Create Role",
+        category: PermissionCategory.ROLE_MANAGEMENT.value,
+    };
+    static UPDATE_ROLE = {
+        value: "update-role",
+        label: "Update Role",
+        category: PermissionCategory.ROLE_MANAGEMENT.value,
+    };
+    static DELETE_ROLE = {
+        value: "delete-role",
+        label: "Delete Role",
+        category: PermissionCategory.ROLE_MANAGEMENT.value,
+    };
+    static APPROVE_CREATE_ROLE = {
+        value: "approve-create-role",
+        label: "Approve Create Role",
+        category: PermissionCategory.ROLE_MANAGEMENT.value,
+    };
+    static APPROVE_UPDATE_ROLE = {
+        value: "approve-update-role",
+        label: "Approve Update Role",
+        category: PermissionCategory.ROLE_MANAGEMENT.value,
+    };
+    static APPROVE_DELETE_ROLE = {
+        value: "approve-delete-role",
+        label: "Approve Delete Role",
+        category: PermissionCategory.ROLE_MANAGEMENT.value,
+    };
+
     static isValid(permission) {
         return [
             PermissionsEnum.VIEW_USER.value,
@@ -45,7 +84,14 @@ class PermissionsEnum {
             PermissionsEnum.DELETE_USER.value,
             PermissionsEnum.APPROVE_CREATE_USER.value,
             PermissionsEnum.APPROVE_UPDATE_USER.value,
-            PermissionsEnum.APPROVE_DELETE_USER.value]
+            PermissionsEnum.APPROVE_DELETE_USER.value,
+            PermissionsEnum.VIEW_ROLE.value,
+            PermissionsEnum.CREATE_ROLE.value,
+            PermissionsEnum.UPDATE_ROLE.value,
+            PermissionsEnum.DELETE_ROLE.value,
+            PermissionsEnum.APPROVE_CREATE_ROLE.value,
+            PermissionsEnum.APPROVE_UPDATE_ROLE.value,
+            PermissionsEnum.APPROVE_DELETE_ROLE.value]
             .includes(permission);
     }
 }
