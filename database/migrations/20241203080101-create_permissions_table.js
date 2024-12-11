@@ -5,7 +5,7 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('permissions', {
             id: {
-                type: Sequelize.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true
+                type: Sequelize.INTEGER.UNSIGNED, autoIncrement: false, primaryKey: true
             }, name: {
                 type: Sequelize.STRING, allowNull: false
             }, value: {

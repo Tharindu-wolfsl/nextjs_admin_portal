@@ -10,6 +10,7 @@ export const POST = async (request) => {
         const formData = await request.formData();
         const name = formData.get('name');
         const email = formData.get('email');
+        const roles = formData.get('roles');
         const password = await new GenerateHash({plaintext : process.env.DEFAULT_USER_PW, saltRounds: Number(process.env.SALT_ROUNDS) }).getHash();
         // const password = formData.get('password');
         const isUserExists = await User.findOne({where: {email}});
@@ -18,12 +19,12 @@ export const POST = async (request) => {
         }
         const new_payload = {
             data: {
-                name, email, password
+                name, email, password, roles
             }
         }
         const summary_data = {
             common: {
-                Name: name, Email: email
+                Name: name, Email: email, Roles: roles
             }
         }
         const data = {

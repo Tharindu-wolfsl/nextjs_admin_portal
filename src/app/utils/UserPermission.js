@@ -8,7 +8,7 @@ class UserPermission {
     async isPermissionGranted() {
 
         //Get user role
-        $role =  await RolesHas
+        // $role =  await RolesHas
     }
 }
 

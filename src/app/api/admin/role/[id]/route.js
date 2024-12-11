@@ -1,5 +1,4 @@
-import GenerateHash from "../../../../utils/GenerateHash";
-import User from "../../../../models/User";
+import Role from "../../../../models/Role";
 import FormsEnum from "../../../../enums/FormsEnum";
 import SubmitMethodsEnum from "../../../../enums/SubmitMethodsEnum";
 import PermissionsEnum from "../../../../enums/PermissionsEnum";

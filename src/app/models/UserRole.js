@@ -4,7 +4,7 @@ import sequelize from "../db.ts";
 const UserRole = sequelize.define('UserRole', {
     // Model attributes are defined here
     id: {
-        type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true
+        type: DataTypes.INTEGER, autoIncrement: false, primaryKey: true
     }, role_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
