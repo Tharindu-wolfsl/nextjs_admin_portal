@@ -1,15 +1,15 @@
 class SubmitMethodsEnum {
     static CREATE = {
-        value: "create-user",
-        label: "Create User",
+        value: "CREATE",
+        label: "Create",
     };
     static UPDATE = {
-        value: "update-user",
-        label: "Update User",
+        value: "UPDATE",
+        label: "Update",
     };
     static DELETE = {
-        value: "delete-user",
-        label: "Delete User",
+        value: "DELETE",
+        label: "Delete",
     };
 
     static isValid(method) {

@@ -1,9 +1,9 @@
 class PermissionCategory {
-    static USER_MANAGEMENT = {
+    static CREATE_USER = {
         value: "user-management",
         label: "User Management",
     }
-    static ROLE_MANAGEMENT = {
+    static UPDATE_USER = {
         value: "role-management",
         label: "Role Management",
     }
