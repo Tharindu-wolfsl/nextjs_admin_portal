@@ -1,4 +1,4 @@
-class PermissionCategory {
+class DualAuthSettingsEnum {
     static CREATE_USER = {
         value: "user-management",
         label: "User Management",
@@ -9,8 +9,8 @@ class PermissionCategory {
     }
 
     static isValid(category) {
-        return [PermissionCategory.USER_MANAGEMENT.value, PermissionCategory.ROLE_MANAGEMENT.value].includes(category);
+        return [DualAuthSettingsEnum.CREATE_USER.value, DualAuthSettingsEnum.UPDATE_USER.value].includes(category);
     }
 }
 
-module.exports = PermissionCategory;
+module.exports = DualAuthSettingsEnum;
