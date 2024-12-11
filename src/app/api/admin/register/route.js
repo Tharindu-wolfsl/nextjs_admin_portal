@@ -1,7 +1,7 @@
 import User from "../../../models/User";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import {middleware} from "../../../middleware/middeware";
+// import {middleware} from "../../../middleware/middeware";
 // import login from "../../../../../public/auth"
 
 
@@ -13,23 +13,22 @@ export const POST = async (request) => {
         const name = reqBody.get("name");
         const email = reqBody.get("email");
         const password = reqBody.get("password");
-        const user = await User.findOne({ where: { email } });
-        // const { pathname, origin } = request.nextUrl;
-        // console.log('qwdfre',pathname);
-middleware(request);
-        if (user ) {
-            const token = jwt.sign({ userId: user.id}, JWT_SECRET, { expiresIn: '30min' });
+        // const user = await User.findOne({ where: { email } });
 
-            return new Response(
-                JSON.stringify({ message: "User already exists", token }),{
-                status: 200,
-                    headers: {
-                        "Set-Cookie": `authToken=${token}; HttpOnly; Path=/; Max-Age=1800`,
-                        "Content-Type": "application/json",
-                    },
-            });
-        }
-
+        // middleware(request);
+        //
+        // if (user ) {
+        //     const token = jwt.sign({ userId: user.id}, JWT_SECRET, { expiresIn: '30min' });
+        //
+        //     return new Response(
+        //         JSON.stringify({ message: "User already exists", token }),{
+        //         status: 200,
+        //             headers: {
+        //                 "Set-Cookie": `authToken=${token}; HttpOnly; Path=/; Max-Age=1800`,
+        //                 "Content-Type": "application/json",
+        //             },
+        //     });
+        // }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
