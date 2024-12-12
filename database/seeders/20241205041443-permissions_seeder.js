@@ -4,8 +4,8 @@ const PermissionsEnum = require(`../../src/app/enums/PermissionsEnum.js`);
 
 module.exports = {
     async up(queryInterface, Sequelize) {
-        const permissions = Object.values(PermissionsEnum).map(permission => ({
-            name: permission.label, value: permission.value, category: permission.category,
+        const permissions = Object.values(PermissionsEnum).map((permission, index) => ({
+            id:++index, name: permission.label, value: permission.value, category: permission.category,
         }));
         await queryInterface.bulkInsert('permissions', [...permissions], {});
     },

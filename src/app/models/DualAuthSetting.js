@@ -4,7 +4,7 @@ import sequelize from "../db.ts";
 const DualAuthSetting = sequelize.define('DualAuthSetting', {
     // Model attributes are defined here
     id: {
-        type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true
+        type: DataTypes.INTEGER, autoIncrement: false, primaryKey: true
     }, feature_name: {
         type: DataTypes.STRING,
     }, status: {

@@ -1,6 +1,7 @@
 import FormDualAuth from "../../models/FormDualAuth";
 import Models from "../../common/Models";
 import SubmitMethodsEnum from "../../enums/SubmitMethodsEnum";
+import {getMaxId} from "../../utils/helper";
 
 class DualAuth {
     constructor({
@@ -60,13 +61,17 @@ class DualAuth {
             let response = [];
             const DualAuth = await FormDualAuth.findByPk(this.id);
             let payload = DualAuth.new_payload ? JSON.parse(DualAuth.new_payload).data : {};
+            console.log('payload--------------------',payload);
             const id = DualAuth.new_payload &&  JSON.parse(DualAuth.new_payload).id ? JSON.parse(DualAuth.new_payload).id : null;
+            console.log(Models)
             const Model = Models[DualAuth.model_type];
             if (status === 'APPROVED') {
                 if (DualAuth.model_type !== '') {
                     switch (DualAuth.method) {
                         case SubmitMethodsEnum.CREATE.value :
-                            await Model.create(payload);
+                            const payload_data = {id:await getMaxId(DualAuth.model_type), ...payload};
+                            console.log('#########################payload_data', payload_data);
+                            await Model.create(payload_data);
                             await this.update_status(DualAuth, status)
                             break;
                         case SubmitMethodsEnum.UPDATE.value :

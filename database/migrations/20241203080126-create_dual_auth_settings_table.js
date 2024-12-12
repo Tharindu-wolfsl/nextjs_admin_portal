@@ -5,7 +5,7 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('dual_auth_settings', {
             id: {
-                type: Sequelize.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true
+                type: Sequelize.INTEGER.UNSIGNED, autoIncrement: false, primaryKey: true
             }, feature_name: {
                 type: Sequelize.STRING,
             }, status: {
