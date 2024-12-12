@@ -63,6 +63,7 @@ class DualAuth {
             let payload = DualAuth.new_payload ? JSON.parse(DualAuth.new_payload).data : {};
             console.log('payload--------------------',payload);
             const id = DualAuth.new_payload &&  JSON.parse(DualAuth.new_payload).id ? JSON.parse(DualAuth.new_payload).id : null;
+            console.log(Models)
             const Model = Models[DualAuth.model_type];
             if (status === 'APPROVED') {
                 if (DualAuth.model_type !== '') {
