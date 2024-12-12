@@ -76,6 +76,20 @@ class PermissionsEnum {
         category: PermissionCategory.ROLE_MANAGEMENT.value,
     };
 
+    //-------------Portal Management---------------
+    static VIEW_DUAL_AUTH_SETTINGS = {
+        value: "view-dual-auth-settings",
+        label: "View Dual Auth Settings",
+        category: PermissionCategory.PORTAL_MANAGEMENT.value,
+    };
+
+    static UPDATE_DUAL_AUTH_SETTINGS = {
+        value: "update-dual-auth-settings",
+        label: "Update Dual Auth Settings",
+        category: PermissionCategory.PORTAL_MANAGEMENT.value,
+    };
+
+
     static isValid(permission) {
         return [
             PermissionsEnum.VIEW_USER.value,
@@ -91,7 +105,10 @@ class PermissionsEnum {
             PermissionsEnum.DELETE_ROLE.value,
             PermissionsEnum.APPROVE_CREATE_ROLE.value,
             PermissionsEnum.APPROVE_UPDATE_ROLE.value,
-            PermissionsEnum.APPROVE_DELETE_ROLE.value]
+            PermissionsEnum.APPROVE_DELETE_ROLE.value,
+            PermissionsEnum.VIEW_DUAL_AUTH_SETTINGS.value,
+            PermissionsEnum.UPDATE_DUAL_AUTH_SETTINGS.value,
+        ]
             .includes(permission);
     }
 }

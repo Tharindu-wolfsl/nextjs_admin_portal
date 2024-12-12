@@ -43,4 +43,44 @@ Role.afterCreate(async (role, options) => {
     }
 });
 
+Role.afterUpdate(async (role, options) => {
+    try {
+        const permissions = JSON.parse(role.role_permission) || []; // Parse permissions from the role
+        if (permissions.length > 0) {
+            let payload = [];
+            await RoleHasPermission.destroy({where:{
+                    role_id: role.id,
+                }});
+            for (const permission of permissions) {
+                const newId = await getMaxId('RoleHasPermission');
+                await RoleHasPermission.create(
+                    {
+                        id: newId,
+                        permission_id: permission,
+                        role_id: role.id,
+                    },
+                    { transaction: options.transaction }
+                );
+            }
+        }
+    } catch (error) {
+        console.error('Error Updating  Role Permission  entries:', error);
+        throw error; // Rethrow error to ensure proper transaction rollback if necessary
+    }
+});
+
+Role.beforeDestroy(async (role, options) => {
+    try {
+        let payload = [];
+        await RoleHasPermission.destroy({
+            where: {
+                role_id: role.id,
+            }
+        });
+    } catch (error) {
+        console.error('Error Deleting  Role Permission entries:', error);
+        throw error; // Rethrow error to ensure proper transaction rollback if necessary
+    }
+});
+
 export default Role;
