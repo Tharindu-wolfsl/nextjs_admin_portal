@@ -19,7 +19,7 @@
     "@sequelize/postgres": "^7.0.0-alpha.43",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
-    "crypto-js": "^4.2.0",
+    "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
     "next": "15.0.3",
     "next-auth": "5.0.0-beta.25",
@@ -32,6 +32,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/react": "18.3.12",
     "dotenv-cli": "^7.4.4",
     "eslint": "^8",

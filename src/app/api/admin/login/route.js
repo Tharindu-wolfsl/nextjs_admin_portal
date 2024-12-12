@@ -11,7 +11,6 @@ export const POST = async (request) => {
         const password = reqBody.get("password");
         const user = await User.findOne({ where: { email } });
 
-        // middleware(request);
 
         if (user ) {
             const token = jwt.sign({ userId: user.id}, JWT_SECRET, { expiresIn: '30min' });
