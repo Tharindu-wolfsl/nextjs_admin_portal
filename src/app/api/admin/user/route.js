@@ -1,9 +1,10 @@
 import User from "../../../models/User";
-import DualAuth from "../../../common/dual_auth/DualAuth";
+import DualAuth from "../../../common/DualAuth";
 import FormsEnum from "../../../enums/FormsEnum";
 import SubmitMethodsEnum from "../../../enums/SubmitMethodsEnum";
 import PermissionsEnum from "../../../enums/PermissionsEnum";
 import GenerateHash from "../../../utils/GenerateHash";
+import ActivityLogger from "../../../common/ActivityLogger";
 
 export const POST = async (request) => {
     try {
@@ -37,8 +38,14 @@ export const POST = async (request) => {
             permission: PermissionsEnum.CREATE_USER.value,
             created_by: 1,
         };
-
         const dualAuth = await new DualAuth(data).create();
+        await new ActivityLogger({
+            user_name: 'admin@admin.com',
+            affected_module: FormsEnum.USER_MANAGEMENT.label,
+            action: PermissionsEnum.CREATE_USER.label,
+            new_value: JSON.stringify(summary_data['common']),
+            link_id: dualAuth.id
+        }).save();
         return new Response(JSON.stringify({message:'Success!', data:dualAuth}), {status: 200});
     } catch (err) {
         return new Response(JSON.stringify({message:'Something went wrong!', error: err}), {status: 500});
