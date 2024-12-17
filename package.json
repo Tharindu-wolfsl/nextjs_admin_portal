@@ -39,8 +39,10 @@
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.7",
     "@types/react": "18.3.12",
+    "@typescript-eslint/eslint-plugin": "^8.18.1",
+    "@typescript-eslint/parser": "^8.18.1",
     "dotenv-cli": "^7.4.4",
-    "eslint": "^8",
+    "eslint": "^8.57.1",
     "eslint-config-next": "15.0.3",
     "postcss": "^8",
     "sequelize-cli": "^6.6.2",
