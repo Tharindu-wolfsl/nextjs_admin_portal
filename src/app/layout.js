@@ -1,4 +1,3 @@
-import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "../app/components/sidebar/sidebar";
 import { Inter } from "next/font/google";
@@ -16,12 +15,14 @@ export default function RootLayout({ children }) {
         <html lang="en">
         <body className={`${inter.className} flex h-screen`}>
         {/* Sidebar */}
-        <Sidebar className="w-64 bg-gray-900 text-white h-full" />
+        <div className="h-screen sm:h-auto sm:overflow-y-auto md:h-auto lg:h-full xl:overflow-y-auto">
+            <Sidebar/>
+        </div>
 
         {/* Main Content */}
-        <div className="flex flex-col flex-grow h-full">
+        <div className="flex flex-col flex-grow h-screen overflow-hidden">
             <Header className="bg-gray-100 text-black p-4" />
-            <div className="flex-grow bg-gray-100 p-4 overflow-auto">
+            <div className="flex-grow bg-gray-100 p-4 overflow-y-auto">
                 {children}
             </div>
         </div>
@@ -29,4 +30,3 @@ export default function RootLayout({ children }) {
         </html>
     );
 }
-

@@ -47,25 +47,58 @@ export default function Dashboard() {
             {/*        </div>*/}
             {/*    ))}*/}
             {/*</div>*/}
-
-            <div className="flex gap-4 text-stone-400">
-                {[
-                    'Total Transactions',
-                    'Success Transactions',
-                    'Failed Transactions',
-                    'Refund Transactions',
-                    'Void Transactions',
-                    'Chargebacks',
-                ].map((label) => (
-                    <div
-                        key={label}
-                        className="flex-1 box-border h-16 p-2 border-2 border-neutral-400 flex items-center justify-center"
-                    >
-                        <div>{label}</div>
-                    </div>
-                ))}
+            <div className="grid grid-cols-4 gap-4 p-4">
+                <div className="bg-blue-500 h-32 flex items-center justify-center text-white">
+                    Box 1
+                </div>
+                <div className="bg-red-500 h-32 flex items-center justify-center text-white">
+                    Box 2
+                </div>
+                <div className="bg-green-500 h-32 flex items-center justify-center text-white">
+                    Box 3
+                </div>
+                <div className="bg-yellow-500 h-32 flex items-center justify-center text-black">
+                    Box 4
+                </div>
             </div>
 
+
+            {/*<div className="flex gap-4 text-stone-400">*/}
+            {/*    {[*/}
+            {/*        'Total Transactions',*/}
+            {/*        'Success Transactions',*/}
+            {/*        'Failed Transactions',*/}
+            {/*        'Refund Transactions',*/}
+            {/*        'Void Transactions',*/}
+            {/*        'Chargebacks',*/}
+            {/*    ].map((label) => (*/}
+            {/*        <div*/}
+            {/*            key={label}*/}
+            {/*            className="flex-1 box-border h-16 p-2 border-2 border-neutral-400 flex items-center justify-center"*/}
+            {/*        >*/}
+            {/*            <div>{label}</div>*/}
+            {/*        </div>*/}
+            {/*    ))}*/}
+            {/*</div>*/}
+
+            <div className="flex gap-4">
+                <div className="flex-1 bg-white p-4 shadow-md rounded-md">
+                    <h2 className="text-center md:text-lg lg:text-xl text-[#04334D] text-base font-semibold mb-4">Monthly
+                        Success Transactions</h2>
+                    <div className="w-2/3 h-48 mx-auto"> {/* Responsive sizing */}
+                        <Bar data={barData}/>
+                    </div>
+                </div>
+                <div className="-flex-1 bg-white p-4 shadow-md rounded-md">
+                    <h2 className="text-center md:text-lg lg:text-xl text-[#04334D] text-base font-semibold mb-4">Payments
+                        by Method</h2>
+                    <div className="w-2/3 h-48 mx-auto"> {/* Responsive sizing */}
+                        <Doughnut data={donutData}/>
+                    </div>
+                </div>
+
+
+            </div>
             <div className="flex gap-4">
                 <div className="-flex-1 bg-white p-4 shadow-md rounded-md">
                     <h2 className="text-center md:text-lg lg:text-xl text-[#04334D] text-base font-semibold mb-4">Payments
@@ -75,7 +108,7 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="flex-1 bg-slate-800 p-4 shadow-md rounded-md">
+                <div className="flex-1 bg-white p-4 shadow-md rounded-md">
                     <h2 className="text-center md:text-lg lg:text-xl text-[#04334D] text-base font-semibold mb-4">Monthly
                         Success Transactions</h2>
                     <div className="w-2/3 h-48 mx-auto"> {/* Responsive sizing */}
@@ -84,11 +117,11 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className="flex gap-4">
-                <div className="-flex-1 bg-slate-800 p-4 shadow-md rounded-md">
+                <div className="-flex-1 bg-white p-4 shadow-md rounded-md">
                     <h2 className="text-center md:text-lg lg:text-xl text-[#04334D] text-base font-semibold mb-4">Recent
                         Transactions</h2>
                 </div>
-                <div className="-flex-1 bg-slate-800 p-4 shadow-md rounded-md">
+                <div className="-flex-1 bg-white p-4 shadow-md rounded-md">
                     <h2 className="text-center md:text-lg lg:text-xl text-[#04334D] text-base font-semibold mb-4">Transaction
                         by Integrations</h2>
                 </div>

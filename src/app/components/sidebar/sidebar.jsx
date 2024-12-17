@@ -54,34 +54,13 @@ const navElements = [
         href: '/admin/settings',
         icon: <AiOutlineUser className='w-6 h-6 mr-2' />
     },
-    // {
-    //     title: 'Settings',
-    //     href: '/admin/settings',
-    //     icon: <AiOutlineUser className='w-6 h-6 mr-2' />
-    // },
-    // {
-    //     title: 'Settings',
-    //     href: '/admin/settings',
-    //     icon: <AiOutlineUser className='w-6 h-6 mr-2' />
-    // },
-    // {
-    //     title: 'Settings',
-    //     href: '/admin/settings',
-    //     icon: <AiOutlineUser className='w-6 h-6 mr-2' />
-    // }, {
-    //     title: 'Settings',
-    //     href: '/admin/settings',
-    //     icon: <AiOutlineUser className='w-6 h-6 mr-2' />
-    // },
-
-
 ]
 
 const Sidebar = () => {
     const [isCollapsed, setIsCollapsed] = useState(false)
     return (
-        <div className={`h-screen bg-slate-800 text-slate-50 flex flex-col ${isCollapsed ? 'w-20' : 'w-64'} transition-all duration-300`}>
-            <div className="flex items-center justify-between h-20 bg-slate-800 p-4">
+        <div className={`h-screen bg-slate-800 text-gray-100 flex flex-col ${isCollapsed ? 'w-20' : 'w-64 '} transition-all duration-300`}>
+            <div className="flex items-center justify-between h-20 p-4">
                 {
                     !isCollapsed && (
                         <h1 className="text-lg md:text-2xl font-bold italic lg:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-[#04334D] to-[#01ACED]">
@@ -96,7 +75,7 @@ const Sidebar = () => {
                     {isCollapsed ? <AiOutlineMenu size={24} /> : <AiOutlineClose size={24} />}
                 </button>
             </div>
-            <div className='flex-1 flex flex-col justify-between overflow-y-auto'>
+            <div className='flex-1 flex flex-col justify-between overflow-hidden'>
                 <nav className='mt-10'>
                     {
                         navElements.map((navElement) => (
