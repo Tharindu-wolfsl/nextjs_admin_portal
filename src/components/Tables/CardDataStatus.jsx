@@ -1,22 +1,13 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
-interface CardDataStatsProps {
-    title: string;
-    total: string;
-    rate: string;
-    levelUp?: boolean;
-    levelDown?: boolean;
-    children: ReactNode;
-}
-
-const CardDataStats: React.FC<CardDataStatsProps> = ({
-                                                         title,
-                                                         total,
-                                                         rate,
-                                                         levelUp,
-                                                         levelDown,
-                                                         children,
-                                                     }) => {
+const CardDataStats = ({
+                           title,
+                           total,
+                           rate,
+                           levelUp,
+                           levelDown,
+                           children,
+                       }) => {
     return (
         <div className="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
             <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
@@ -36,7 +27,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
                         levelUp && "text-meta-3"
                     } ${levelDown && "text-meta-5"} `}
                 >
-          {rate}
+                    {rate}
 
                     {levelUp && (
                         <svg
@@ -68,7 +59,7 @@ const CardDataStats: React.FC<CardDataStatsProps> = ({
                             />
                         </svg>
                     )}
-        </span>
+                </span>
             </div>
         </div>
     );
