@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@sequelize/postgres": "^7.0.0-alpha.43",
+    "@tanstack/react-table": "^8.20.6",
     "apexcharts": "^4.2.0",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",

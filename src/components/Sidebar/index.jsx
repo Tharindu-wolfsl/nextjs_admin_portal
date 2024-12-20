@@ -7,7 +7,7 @@ import Image from "next/image";
 import SidebarItem from "../Sidebar/SidebarItem";
 import ClickOutside from "../Tables/ClickOutside";
 import useLocalStorage from "../../hooks/useLocalStorage";
-
+// import abc from "/src/app/Table/page"
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     const pathname = usePathname();
     const [pageName, setPageName] = useLocalStorage("selectedMenu", "dashboard");
@@ -158,7 +158,12 @@ const menuGroups =
                     </svg>
                 ),
                 label: "Tables",
-                route: "/tables",
+                // route: "/Table",
+                route: "#",
+                children: [
+                    { label: "User Roles", route: "/Table" },
+                    { label: "Users", route: "/forms/form-layout" },
+                ],
             },
             {
                 icon: (

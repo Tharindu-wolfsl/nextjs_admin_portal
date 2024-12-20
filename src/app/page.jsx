@@ -3,7 +3,7 @@ import DefaultLayout from "../components/Layouts/DefaultLayout";
 import Dashboard from "../components/Dashboard/Dashboard";
 
 export const metadata = {
-    title: "Next.js E-commerce Dashboard | TailAdmin - Next.js Dashboard Template",
+    title: "Admin portal",
     description: "This is Next.js Home for TailAdmin Dashboard Template",
 };
 

@@ -11,6 +11,7 @@ async function getUsers(params) {
 }
 async function getPermissions() {
     const permissions = Object.values(PermissionsEnum);
+    // console
     return {permissions};
 }
 async function page() {
