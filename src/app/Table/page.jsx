@@ -5,24 +5,43 @@ import DefaultLayout from "/src/components/Layouts/DefaultLayout";
 
 async function getUserRoles() {
     const roles = await UserRoles.findAll();
-    console.log(roles)
-    console.log('655555555555555555555555555',roles.map(userRole => userRole.dataValues))
+    // console.log(roles)
+    // console.log('655555555555555555555555555',roles.map(userRole => userRole.dataValues))
     return roles.map(userRole => userRole.dataValues);
 }
 
 async function UserRoleTable() {
 
     const roles = await getUserRoles();
-    console.log('kiyooooooooooooooooooooooooooooooo')
-    console.log(roles);
+    // console.log('kiyooooooooooooooooooooooooooooooo')
+    // console.log(roles);
     const columns = [
-        {Header: "ID", accessor: "id"},
-        {Header: "Role ID", accessor: "role_id"},
-        {Header: "User ID", accessor: "user_id"},
-        {Header: "Created At", accessor: "created_at"},
-        {Header: "Updated At", accessor: "updated_at"},
+        {
+            header: "ID",
+            accessorKey: "id",
+            id: "id",
+        },
+        {
+            header: "Role ID",
+            accessorKey: "role_id",
+            id: "role_id",
+        },
+        {
+            header: "User ID",
+            accessorKey: "user_id",
+            id: "user_id",
+        },
+        {
+            header: "Created At",
+            accessorKey: "created_at",
+            id: "created_at",
+        },
+        {
+            header: "Updated At",
+            accessorKey: "updated_at",
+            id: "updated_at",
+        }
     ];
-
     return (
         <DefaultLayout>
         <div>

@@ -1,6 +1,15 @@
-import React from 'react';
+"use client";
+import {
+    flexRender,
+    getCoreRowModel,
+    getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
+    useReactTable,
+} from '@tanstack/react-table';
+import { useState } from 'react';
 
-const Table = ({ data, columns }) => {
+export default function Table({ data, columns }) {
     const formatDate = (dateValue) => {
         if (dateValue) {
             return new Date(dateValue).toLocaleString();
@@ -8,54 +17,123 @@ const Table = ({ data, columns }) => {
         return '';
     };
 
+    const [columnVisibility, setColumnVisibility] = useState({});
+    const [columnOrder, setColumnOrder] = useState([]);
+    const [sorting, setSorting] = useState([]);
+    const [filtering, setFiltering] = useState('');
+
+    const table = useReactTable({
+        data,
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        getFilteredRowModel: getFilteredRowModel(),
+        state: {
+            sorting: sorting,
+            globalFilter: filtering,
+            columnOrder,
+            columnVisibility,
+        },
+        onColumnVisibilityChange: setColumnVisibility,
+        onSortingChange: setSorting,
+        onGlobalFilterChange: setFiltering,
+        onColumnOrderChange: setColumnOrder,
+    });
+
+    // Function to toggle column visibility
+    const toggleColumnVisibility = (columnId) => {
+        setColumnVisibility((prev) => ({
+            ...prev,
+            [columnId]: !prev[columnId],
+        }));
+    };
+
     return (
-        <table style={{border: '1px solid black', width: '100%', borderCollapse: 'collapse'}}>
-            <thead>
-            <tr>
-                {columns.map((column, index) => (
-                    <th
-                        key={index}
-                        style={{
-                            borderBottom: '1px solid black',
-                            padding: '10px',
-                            textAlign: 'left',
-                        }}
-                    >
-                        {column.Header}
-                    </th>
+        <div className="w3-container">
+            <input
+                type="text"
+                value={filtering}
+                onChange={(e) => setFiltering(e.target.value)}
+                placeholder="Search..."
+            />
+
+            <div>
+                <ul>
+                    {columnOrder.map((columnId) => (
+                        <li key={columnId}>{columnId}</li>
+                    ))}
+                </ul>
+            </div>
+
+            <div>
+                <h3>Show columns:</h3>
+                {columns.map((column) => (
+                    <div key={column.id}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={columnVisibility[column.id] !== false}
+                                onChange={() => toggleColumnVisibility(column.id)}
+                            />
+                            {column.header}
+                        </label>
+                    </div>
                 ))}
-            </tr>
-            </thead>
-            <tbody>
-            {data.length > 0 ? (
-                data.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
-                        {columns.map((column, colIndex) => (
-                            <td
-                                key={colIndex}
+            </div>
+
+            {/* Table */}
+            <table className="w3-table-all">
+                <thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                    <tr key={headerGroup.id}>
+                        {headerGroup.headers.map((header) => (
+                            <th
+                                key={header.id}
+                                onClick={header.column.getToggleSortingHandler()}
                                 style={{
-                                    padding: '10px',
-                                    borderBottom: '1px solid black',
-                                    textAlign: 'left',
+                                    cursor: 'pointer', // Add cursor pointer for better UX
                                 }}
                             >
-                                {column.accessor === 'created_at' || column.accessor === 'updated_at'
-                                    ? formatDate(row[column.accessor])
-                                    : row[column.accessor]}
+                                {header.isPlaceholder ? null : (
+                                    <div>
+                                        {flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                        )}
+                                        {
+                                            {
+                                                asc: '🔼',
+                                                desc: '🔽',
+                                            }[
+                                            header.column.getIsSorted() ?? null
+                                                ]}
+                                    </div>
+                                )}
+                            </th>
+                        ))}
+                    </tr>
+                ))}
+                </thead>
+
+                <tbody>
+                {table.getRowModel().rows.map((row) => (
+                    <tr key={row.id}>
+                        {row.getVisibleCells().map((cell) => (
+                            <td key={cell.id}>
+                                {cell.column.id === 'created_at' ||
+                                cell.column.id === 'updated_at'
+                                    ? formatDate(cell.getValue()) // Apply date format here
+                                    : flexRender(
+                                        cell.column.columnDef.cell,
+                                        cell.getContext()
+                                    )}
                             </td>
                         ))}
                     </tr>
-                ))
-            ) : (
-                <tr>
-                    <td colSpan={columns.length} style={{textAlign: 'center', padding: '10px'}}>
-                        No data available
-                    </td>
-                </tr>
-            )}
-            </tbody>
-        </table>
+                ))}
+                </tbody>
+            </table>
+        </div>
     );
-};
-
-export default Table;
+}
