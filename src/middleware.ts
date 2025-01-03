@@ -9,8 +9,9 @@ if (!JWT_SECRET) {
 }
 
 export function middleware(req: NextRequest) {
-    const encryptedToken = req.cookies.get('authToken')?.value;
-    console.log(encryptedToken);
+    const encryptedToken = req.cookies.get('auth.session-token')?.value;
+
+    console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',encryptedToken);
     const loginUrl = req.nextUrl.clone();
     loginUrl.pathname = '/login';
     const { pathname } = req.nextUrl;
@@ -60,6 +61,7 @@ export function middleware(req: NextRequest) {
 
 export const config = {
     matcher: [
-        '/api/admin/login',
+        '/Permissions'
+        // '/api/admin/login',
     ],
 };

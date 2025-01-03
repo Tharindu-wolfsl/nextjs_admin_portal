@@ -4,11 +4,12 @@ import { authConfig } from './auth.config';
 import { z } from 'zod';
 import User from '../models/User';
 import bcrypt from 'bcrypt';
-import axios from "axios";
+import jwt from 'jsonwebtoken';
 
 async function getUser(email){
     try {
-        const user = await User.findOne({ where: { email } });
+        const user = await User.findOne({ where: { email },            attributes: { exclude: ['roles'] }, // Exclude the role column
+        });
         return user;
     } catch (error) {
         console.error('Failed to fetch user:', error);
@@ -63,8 +64,15 @@ export const { handlers: {POST,GET},auth, signIn, signOut } = NextAuth({
                     return null;
                 }
                 console.log('Authentication successful for user:', user.email);
-                return user;
-                // if (parsedCredentials.success) {
+                const token = jwt.sign(
+                    { id: user.id, email: user.email },
+                    process.env.JWT_SECRET,
+                    { expiresIn: '1h' } // Token expires in 1 hour
+                );
+
+                // console.log(token);
+                console.log('token',token)
+                return { ...user, token };                // if (parsedCredentials.success) {
                 //     const { email, password } = parsedCredentials.data;
                 //     const user = await getUser(email);
                 //     if (!user) return null;
@@ -79,4 +87,32 @@ export const { handlers: {POST,GET},auth, signIn, signOut } = NextAuth({
             },
         }),
     ],
+    callbacks: {
+        async jwt({ token, user }) {
+            // If user exists (during the sign-in process), add token to JWT
+            if (user) {
+                token.id = user.id;
+                token.email = user.email;
+                token.jwt = user.token; // Ensure this is a string token
+            }
+            return token;
+        },
+        async session({ session, token }) {
+            // Ensure the JWT is stored as a string in the session
+            session.user.id = token.id;
+            session.user.email = token.email;
+            session.user.token = token.jwt; // Attach the JWT to the session
+            return session;
+        },
+    },
+    cookies: {
+        sessionToken: {
+            name: 'next-auth.session-token', // Cookie name
+            options: {
+                httpOnly: true, // Makes the cookie inaccessible from JavaScript
+                maxAge: 24 * 60 * 60, // Cookie expires after 1 day
+                path: '/', // Available for the entire app
+            },
+        },
+    },
 });
