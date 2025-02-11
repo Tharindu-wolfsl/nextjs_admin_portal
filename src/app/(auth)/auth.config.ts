@@ -1,22 +1,32 @@
-import type { NextAuthConfig } from 'next-auth';
+import { NextAuthConfig } from 'next-auth';
 
-export const authConfig = {
+export const authConfig: NextAuthConfig = {
     pages: {
         signIn: '/login',
     },
+    session: {
+        strategy: 'jwt', // Use JWT for session management
+    },
     callbacks: {
-        authorized({ auth, request: { nextUrl } }) {
-            const isLoggedIn = !!auth?.user;
-            console.log(isLoggedIn);
-            const isOnDashboard = nextUrl.pathname.startsWith('/sidebar');
-            if (isOnDashboard) {
-                if (isLoggedIn) return true;
-                return false; // Redirect unauthenticated users to login page
-            } else if (isLoggedIn) {
-                return Response.redirect(new URL('/sidebar', nextUrl));
+        async jwt({ token, user }) {
+            // When user signs in, store their information in the JWT token
+            if (user) {
+                token.id = user.id;
+                token.email = user.email;
             }
-            return true;
+            return token;
+        },
+        async session({ session, token }) {
+            // Attach user info to the session object from the JWT token
+            if (token) {
+                session.user.id = token.id as string;
+                session.user.email = token.email as string;
+            }
+            return session;
         },
     },
-    providers: [],
-} satisfies NextAuthConfig;
+    secret: process.env.NEXTAUTH_SECRET,  // This is where you define the secret
+    providers: [],  // Empty providers array, since you're not using any external auth provider
+};
+
+export default authConfig;

@@ -3,76 +3,69 @@ import { useActionState } from 'react';
 import { authenticate } from '../lib/action';
 
 export default function LoginForm() {
-    const [errorMessage, formAction,successMessage] = useActionState(
+    const [errorMessage, formAction, successMessage] = useActionState(
         authenticate,
         undefined,
     );
 
     return (
-        <form action={formAction} className="space-y-3">
-            <div className="flex-1 rounded-lg bg-gray-950	 px-6 pb-4 pt-8">
-                <h1 className="mb-3 text-2xl">
-                    Please log in to continue.
+        <div className="flex min-h-screen items-center justify-center bg-gray-100">
+            <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
+                <h1 className="mb-4 text-center text-2xl font-semibold text-gray-900">
+                    Welcome Back 👋
                 </h1>
-                <div className="w-full">
+                <p className="mb-6 text-center text-gray-600">
+                    Please log in to access your account.
+                </p>
+
+                <form action={formAction} className="space-y-4">
                     <div>
                         <label
-                            className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+                            className="mb-2 block text-sm font-medium text-gray-700"
                             htmlFor="email"
                         >
                             Email
                         </label>
-                        <div className="relative">
-                            <input
-                                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                id="email"
-                                type="email"
-                                name="email"
-                                placeholder="Enter your email address"
-                                required
-                            />
-                        </div>
+                        <input
+                            className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                            id="email"
+                            type="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        />
                     </div>
-                    <div className="mt-4">
+                    <div>
                         <label
-                            className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+                            className="mb-2 block text-sm font-medium text-gray-700"
                             htmlFor="password"
                         >
                             Password
                         </label>
-                        <div className="relative">
-                            <input
-                                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-                                id="password"
-                                type="password"
-                                name="password"
-                                placeholder="Enter password"
-                                required
-                                minLength={6}
-                            />
-                        </div>
+                        <input
+                            className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                            id="password"
+                            type="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                            minLength={6}
+                        />
                     </div>
-                </div>
-                <button className="mt-4 w-full">
-                    Log in
-                </button>
-                <div
-                    className="flex h-8 items-end space-x-1"
-                    aria-live="polite"
-                    aria-atomic="true"
-                >
-                    {successMessage && (
-                        <>
-                            <p className="text-sm text-green-500">{successMessage}</p>
-                        </>
-                    )}
-                    {errorMessage && (
-                        <>
-                            <p className="text-sm text-red-500">{errorMessage}</p>
-                        </>
-                    )}
-                </div>
+                    <button className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition hover:bg-blue-700">
+                        Log in
+                    </button>
+
+                    <div
+                        className="flex h-8 items-center justify-center text-sm"
+                        aria-live="polite"
+                        aria-atomic="true"
+                    >
+                        {successMessage && <p className="text-green-600">{successMessage}</p>}
+                        {errorMessage && <p className="text-red-600">{errorMessage}</p>}
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     );
 }

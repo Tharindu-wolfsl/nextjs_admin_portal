@@ -9,14 +9,14 @@ export const POST = async (request) => {
         const name = reqBody.get("name");
         const email = reqBody.get("email");
         const password = reqBody.get("password");
-        const user = await User.findOne({ where: { email } });
+        const user = await User.findOne({where: {email}});
+        console.log('user', name);
 
-
-        if (user ) {
-            const token = jwt.sign({ userId: user.id}, JWT_SECRET, { expiresIn: '30min' });
-
+        if (user) {
+            const token = jwt.sign({userId: user.id}, JWT_SECRET, {expiresIn: '30min'});
+            console.log('token', token);
             return new Response(
-                JSON.stringify({ message: "User already exists", token }),{
+                JSON.stringify({message: "User already exists", token}), {
                     status: 200,
                     headers: {
                         "Set-Cookie": `authToken=${token}; HttpOnly; Path=/; Max-Age=1800`,
@@ -28,7 +28,7 @@ export const POST = async (request) => {
 
     } catch (err) {
         console.error(err);
-        return new Response('Something went wrong', { status: 500 });
+        return new Response('Something went wrong', {status: 500});
     }
 
 };

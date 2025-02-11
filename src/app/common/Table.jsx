@@ -17,7 +17,6 @@ export default function Table({ data, columns }) {
         }
         return "";
     };
-
     const [columnVisibility, setColumnVisibility] = useState({});
     const [columnOrder, setColumnOrder] = useState([]);
     const [sorting, setSorting] = useState([]);

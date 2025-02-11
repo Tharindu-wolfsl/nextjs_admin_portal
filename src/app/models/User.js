@@ -25,9 +25,10 @@ const User = sequelize.define('User', {
         type: DataTypes.BOOLEAN, defaultValue: false
     }, login_time: {
         type: DataTypes.DATE,
-    }, roles: {
-        type: DataTypes.STRING,
     },
+    // roles: {
+    //     type: DataTypes.STRING,
+    // },
 }, {
     tableName: "users", sequelize, createdAt: "created_at", updatedAt: "updated_at"
     // Other model options go here

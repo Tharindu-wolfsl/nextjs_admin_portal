@@ -1,67 +1,33 @@
-import { jwtVerify } from 'jose';
-import { NextRequest, NextResponse } from 'next/server';
-// import { NextURL } from "next/dist/server/web/next-url";
+import {getToken} from 'next-auth/jwt';
+import {NextResponse} from 'next/server';
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
-if (!JWT_SECRET) {
-    throw new Error("JWT_SECRET is not defined in environment variables");
-}
-
-export function middleware(req: NextRequest) {
-    const encryptedToken = req.cookies.get('auth.session-token')?.value;
-
-    console.log('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',encryptedToken);
-    const loginUrl = req.nextUrl.clone();
-    loginUrl.pathname = '/login';
-    const { pathname } = req.nextUrl;
-// console.log(' rf4f4',pathname);
-    if (!encryptedToken) {
-        console.log("No token found, redirecting to login...");
-        return NextResponse.redirect(loginUrl);
+export async function middleware(req) {
+    // console.log(process.env.NEXTAUTH_SECRET);
+    const token = await getToken({req, secret: process.env.NEXTAUTH_SECRET});
+    console.log('hellooooooooooooooooooo', token);
+    // Ensure token is valid
+    if (!token) {
+        return NextResponse.redirect(new URL('/login', req.url));
     }
-    if(pathname !== ' /login'){
-        try {
-            const secret = new TextEncoder().encode(JWT_SECRET);
-
-            // Verify the token and extract its payload
-            jwtVerify(encryptedToken, secret).then(({ payload }) => {
-                console.log({ payload });
-
-                // Check if the payload has an "exp" field
-                if (payload.exp) {
-                    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-
-                    if (payload.exp < currentTime) {
-                        console.error("Token has expired");
-                        return NextResponse.redirect(loginUrl);
-                    } else {
-                        console.log("Token is valid");
-                        return NextResponse.next();
-                    }
-                } else {
-                    console.error("Token does not have an 'exp' field");
-                    return NextResponse.redirect(loginUrl);
-                }
-            }).catch(err => {
-                console.error("Token verification failed:", err);
-                // Redirect to login if token verification fails
-                return NextResponse.redirect(loginUrl);
-            });
-
-        } catch (error) {
-            console.error("Token verification error:", error);
-            return NextResponse.redirect(loginUrl);
-        }
-
+    const currentTime = Math.floor(Date.now() / 1000); // Get current time in seconds
+    if (token.exp && token.exp < currentTime) {
+        console.log("Token has expired!");
+        return NextResponse.redirect(new URL("/login", req.url));
     }
 
+    // Redirect based on authentication state
+    // const isOnDashboard = req.nextUrl.pathname.startsWith('/');
+    // if (isOnDashboard && !token) {
+    //     return NextResponse.redirect(new URL('/login', req.url));
+    // }
+    //
+    // if (!isOnDashboard && token) {
+    //     return NextResponse.redirect(new URL('/sidebar', req.url));
+    // }
 
+    return NextResponse.next();
 }
 
 export const config = {
-    matcher: [
-        '/Permissions'
-        // '/api/admin/login',
-    ],
+    matcher: ['/((?!login).*)'], // Matches all paths except "/login"
 };
