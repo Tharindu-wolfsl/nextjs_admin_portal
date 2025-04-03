@@ -4,7 +4,7 @@ import sequelize from "../db.ts";
 const Permission = sequelize.define('Permission', {
     // Model attributes are defined here
     id: {
-        type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true
+        type: DataTypes.INTEGER, autoIncrement: false, primaryKey: true
     }, name: {
         type: DataTypes.STRING, allowNull: false
     }, value: {

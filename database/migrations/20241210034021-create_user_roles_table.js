@@ -5,7 +5,7 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable('user_roles', {
             id: {
-                type: Sequelize.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true
+                type: Sequelize.INTEGER.UNSIGNED, autoIncrement: false, primaryKey: true
             }, role_id: {
                 type: Sequelize.INTEGER, references: {
                     model: 'roles', key: 'id'

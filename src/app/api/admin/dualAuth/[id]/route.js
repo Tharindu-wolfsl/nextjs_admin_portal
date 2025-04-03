@@ -1,4 +1,4 @@
-import DualAuth from "../../../../common/dual_auth/DualAuth";
+import DualAuth from "../../../../common/DualAuth";
 import FormDualAuth from "../../../../models/FormDualAuth";
 
 export const PUT = async (request, {params}) => {

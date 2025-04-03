@@ -1,15 +1,17 @@
 import User from "../../../models/User";
-import DualAuth from "../../../common/dual_auth/DualAuth";
+import DualAuth from "../../../common/DualAuth";
 import FormsEnum from "../../../enums/FormsEnum";
 import SubmitMethodsEnum from "../../../enums/SubmitMethodsEnum";
 import PermissionsEnum from "../../../enums/PermissionsEnum";
 import GenerateHash from "../../../utils/GenerateHash";
+import ActivityLogger from "../../../common/ActivityLogger";
 
 export const POST = async (request) => {
     try {
         const formData = await request.formData();
         const name = formData.get('name');
         const email = formData.get('email');
+        const roles = formData.get('roles');
         const password = await new GenerateHash({plaintext : process.env.DEFAULT_USER_PW, saltRounds: Number(process.env.SALT_ROUNDS) }).getHash();
         // const password = formData.get('password');
         const isUserExists = await User.findOne({where: {email}});
@@ -18,12 +20,12 @@ export const POST = async (request) => {
         }
         const new_payload = {
             data: {
-                name, email, password
+                name, email, password, roles
             }
         }
         const summary_data = {
             common: {
-                Name: name, Email: email
+                Name: name, Email: email, Roles: roles
             }
         }
         const data = {
@@ -36,8 +38,14 @@ export const POST = async (request) => {
             permission: PermissionsEnum.CREATE_USER.value,
             created_by: 1,
         };
-
         const dualAuth = await new DualAuth(data).create();
+        await new ActivityLogger({
+            user_name: 'admin@admin.com',
+            affected_module: FormsEnum.USER_MANAGEMENT.label,
+            action: PermissionsEnum.CREATE_USER.label,
+            new_value: JSON.stringify(summary_data['common']),
+            link_id: dualAuth.id
+        }).save();
         return new Response(JSON.stringify({message:'Success!', data:dualAuth}), {status: 200});
     } catch (err) {
         return new Response(JSON.stringify({message:'Something went wrong!', error: err}), {status: 500});

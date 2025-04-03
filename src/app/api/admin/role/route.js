@@ -1,9 +1,8 @@
-import User from "../../../models/User";
-import DualAuth from "../../../common/dual_auth/DualAuth";
+import DualAuth from "../../../common/DualAuth";
 import FormsEnum from "../../../enums/FormsEnum";
 import SubmitMethodsEnum from "../../../enums/SubmitMethodsEnum";
 import PermissionsEnum from "../../../enums/PermissionsEnum";
-import GenerateHash from "../../../utils/GenerateHash";
+import Role from "../../../models/Role";
 
 export const POST = async (request) => {
     try {
@@ -36,5 +35,13 @@ export const POST = async (request) => {
         return new Response(JSON.stringify({message:'Success!', data:dualAuth}), {status: 200});
     } catch (err) {
         return new Response(JSON.stringify({message:'Something went wrong!', error: err}), {status: 500});
+    }
+}
+export const GET = async (request) => {
+    try {
+        const data = await Role.findAll();
+        return new Response(JSON.stringify({message: 'success', data}), {status: 200});
+    } catch (error) {
+        return new Response(JSON.stringify({message: 'Something went wrong!', error: error}), {status: 500});
     }
 }

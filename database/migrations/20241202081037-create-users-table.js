@@ -6,7 +6,7 @@ module.exports = {
 
         await queryInterface.createTable('users', {
             id: {
-                type: Sequelize.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true
+                type: Sequelize.INTEGER.UNSIGNED, autoIncrement: false, primaryKey: true
             }, name: {
                 type: Sequelize.STRING, allowNull: false
             }, email: {
@@ -25,6 +25,8 @@ module.exports = {
                 type: Sequelize.BOOLEAN, defaultValue: false
             }, login_time: {
                 type: Sequelize.DATE,
+            }, roles: {
+                type: Sequelize.STRING,
             }, created_at: {
                 type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
             }, updated_at: {

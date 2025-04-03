@@ -3,7 +3,7 @@ import User from "../../../../models/User";
 import FormsEnum from "../../../../enums/FormsEnum";
 import SubmitMethodsEnum from "../../../../enums/SubmitMethodsEnum";
 import PermissionsEnum from "../../../../enums/PermissionsEnum";
-import DualAuth from "../../../../common/dual_auth/DualAuth";
+import DualAuth from "../../../../common/DualAuth";
 
 
 export const PUT = async (request, {params}) => {
@@ -11,6 +11,7 @@ export const PUT = async (request, {params}) => {
         const formData = await request.formData();
         const name = formData.get('name');
         const email = formData.get('email');
+        const roles = formData.get('roles');
         let prevData = [];
         // const password = formData.get('password');
         const {id} = await params;
@@ -24,20 +25,24 @@ export const PUT = async (request, {params}) => {
         const old_payload = {
             data: {
                 name: prevData.name,
-                email: prevData.email
+                email: prevData.email,
+                roles: prevData.roles
             }
         }
         const new_payload = {
             data: {},
             id: id
         }
-        if(name && prevData.name !== name) {
+        if(name && (prevData.name !== name)) {
             new_payload.data.name = name;
         }
-        if(email && prevData.email !== email) {
+        if(email && (prevData.email !== email)) {
             new_payload.data.email = email;
         }
-        console.log(new_payload, old_payload);
+        if(roles && (prevData.roles !== roles)) {
+            new_payload.data.roles = roles;
+        }
+
         if( new_payload.data.length === 0 ) {
             return new Response(JSON.stringify({message:'No changes found!'}), {status: 300});
         }
