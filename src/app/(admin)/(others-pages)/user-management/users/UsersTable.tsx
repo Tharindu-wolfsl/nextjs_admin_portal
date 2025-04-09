@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { ColumnDef, ColumnFiltersState, SortingState } from "@tanstack/react-table";
 import { DataTable } from "@/components/tables/DataTable";
 import api from "@/lib/axios";
+import Button from "@/components/ui/button/Button";
+import {Eye, Trash2} from "lucide-react";
 
 type User = {
     id: number;
@@ -61,9 +63,8 @@ export default function UsersTable() {
             header: "Actions",
             cell: ({ row }) => (
                 <div className="flex gap-2">
-                    <button onClick={() => handleView(row.original)} className="text-blue-500 underline">View</button>
-                    <button onClick={() => handleEdit(row.original)} className="text-green-600 underline">Edit</button>
-                    <button onClick={() => handleDelete(row.original)} className="text-red-500 underline">Delete</button>
+                    <Button size={'xs'} onClick={() => handleEdit(row.original)} variant={'primary'} startIcon={<Eye size="20"/>}> </Button>
+                    <Button size={'xs'} onClick={() => handleDelete(row.original)} variant={'negative'} startIcon={<Trash2 size="20"/>}> </Button>
                 </div>
             ),
         },
