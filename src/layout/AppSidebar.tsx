@@ -51,11 +51,11 @@ const navItems: NavItem[] = [
   //   path: "/profile",
   // },
   //
-  // {
-  //   name: "Forms",
-  //   icon: <ListIcon />,
-  //   subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  // },
+  {
+    name: "Forms",
+    icon: <ListIcon />,
+    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
+  },
   // {
   //   name: "Tables",
   //   icon: <TableIcon />,

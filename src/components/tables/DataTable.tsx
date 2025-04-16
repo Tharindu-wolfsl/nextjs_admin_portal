@@ -117,12 +117,12 @@ export function DataTable<TData>({
 
     return (
         <div>
-            <div className="flex justify-between align-middle my-5 mx-5">
+            <div className="flex justify-between align-middle my-2 mx-5">
                 <div>
-                    <Button onClick={() => handleExport("csv")} size="sm" variant="primary" className={'mr-2'}>
+                    <Button onClick={() => handleExport("csv")} size="export" variant="primary" className={'mr-2'}>
                         Export CSV
                     </Button>
-                    <Button  onClick={() => handleExport("excel")} size="sm" variant="secondary">
+                    <Button  onClick={() => handleExport("excel")} size="export" variant="secondary">
                         Export Excel
                     </Button>
                 </div>
