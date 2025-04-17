@@ -23,7 +23,7 @@ module.exports = {
           { id: id }
       );
     } else {
-      // Insert a new admin user
+      // Insert a new admin users
       await queryInterface.bulkInsert('user_roles', [
         { ...adminRole, created_at: new Date() }
       ]);

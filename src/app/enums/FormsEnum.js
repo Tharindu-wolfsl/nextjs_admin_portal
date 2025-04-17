@@ -1,6 +1,6 @@
 class FormsEnum {
     static USER_MANAGEMENT = {
-        value: "user-management", label: "User Management",
+        value: "users-management", label: "User Management",
     }
     static ROLE_MANAGEMENT = {
         value: "role-management", label: "Role Management",

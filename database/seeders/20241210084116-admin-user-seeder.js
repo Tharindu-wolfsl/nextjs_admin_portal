@@ -29,7 +29,7 @@ module.exports = {
                 { email: adminEmail }
             );
         } else {
-            // Insert a new admin user
+            // Insert a new admin users
             await queryInterface.bulkInsert('users', [
                 { ...adminUser, created_at: new Date() }
             ]);

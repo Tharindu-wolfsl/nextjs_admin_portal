@@ -51,11 +51,11 @@ const navItems: NavItem[] = [
   //   path: "/profile",
   // },
   //
-  // {
-  //   name: "Forms",
-  //   icon: <ListIcon />,
-  //   subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  // },
+  {
+    name: "Forms",
+    icon: <ListIcon />,
+    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
+  },
   // {
   //   name: "Tables",
   //   icon: <TableIcon />,
@@ -313,7 +313,7 @@ const AppSidebar: React.FC = () => {
     >
       <div
         className={`py-8 flex  ${
-          !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
+          !isExpanded && !isHovered ? "lg:justify-center" : "justify-center"
         }`}
       >
         <Link href="/">
@@ -321,14 +321,14 @@ const AppSidebar: React.FC = () => {
             <>
               <Image
                 className="dark:hidden"
-                src="/images/logo/logo.svg"
+                src="/images/logo/com-bank-logo.svg"
                 alt="Logo"
                 width={150}
                 height={40}
               />
               <Image
                 className="hidden dark:block"
-                src="/images/logo/logo-dark.svg"
+                src="/images/logo/com-bank-logo.svg"
                 alt="Logo"
                 width={150}
                 height={40}
@@ -336,7 +336,7 @@ const AppSidebar: React.FC = () => {
             </>
           ) : (
             <Image
-              src="/images/logo/logo-icon.svg"
+              src="/images/logo/com-bank-logo.svg"
               alt="Logo"
               width={32}
               height={32}

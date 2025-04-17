@@ -37,8 +37,8 @@ async function page() {
         </div>
         {/*<h1>User List</h1>*/}
         {/*{*/}
-        {/*    users.map((user)=>(*/}
-        {/*            <div key={user.id}>Name: {user.name}</div>*/}
+        {/*    users.map((users)=>(*/}
+        {/*            <div key={users.id}>Name: {users.name}</div>*/}
         {/*    ))*/}
         {/*}*/}
         {/*<h1>Permission List</h1>*/}

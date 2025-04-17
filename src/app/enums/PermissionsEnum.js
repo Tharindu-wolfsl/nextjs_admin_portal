@@ -4,38 +4,38 @@ class PermissionsEnum {
 
     //-------------User Management---------------
     static VIEW_USER = {
-        value: "view-user",
+        value: "view-users",
         label: "View User",
         category: PermissionCategory.USER_MANAGEMENT.value,
     };
     static CREATE_USER = {
-        value: "create-user",
+        value: "create-users",
         label: "Create User",
         category: PermissionCategory.USER_MANAGEMENT.value,
     };
     static UPDATE_USER = {
-        value: "update-user",
+        value: "update-users",
         label: "Update User",
         category: PermissionCategory.USER_MANAGEMENT.value,
     };
     static DELETE_USER = {
-        value: "delete-user",
+        value: "delete-users",
         label: "Delete User",
         category: PermissionCategory.USER_MANAGEMENT.value,
     };
     static APPROVE_CREATE_USER = {
-        value: "approve-create-user",
-        label: "Approve Create user",
+        value: "approve-create-users",
+        label: "Approve Create users",
         category: PermissionCategory.USER_MANAGEMENT.value,
     };
     static APPROVE_UPDATE_USER = {
-        value: "approve-update-user",
+        value: "approve-update-users",
         label: "Approve Update User",
         category: PermissionCategory.USER_MANAGEMENT.value,
     };
     static APPROVE_DELETE_USER = {
-        value: "approve-delete-user",
-        label: "Approve Delete user",
+        value: "approve-delete-users",
+        label: "Approve Delete users",
         category: PermissionCategory.USER_MANAGEMENT.value,
     };
 
