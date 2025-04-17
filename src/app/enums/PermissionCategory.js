@@ -1,6 +1,6 @@
 class PermissionCategory {
     static USER_MANAGEMENT = {
-        value: "user-management",
+        value: "users-management",
         label: "User Management",
     }
     static ROLE_MANAGEMENT = {

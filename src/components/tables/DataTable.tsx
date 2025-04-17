@@ -138,7 +138,7 @@ export function DataTable<TData>({
                                     <TableRow key={headerGroup.id}>
                                         {headerGroup.headers.map(header => (
                                             <TableCell isHeader key={header.id}
-                                                       className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                                       className="px-5 py-3 font-medium text-gray-500 text-start text-theme-md dark:text-gray-400">
                                                 {header.isPlaceholder ? null : (
                                                     <div onClick={header.column.getToggleSortingHandler()}>
                                                         {flexRender(header.column.columnDef.header, header.getContext())}
@@ -156,7 +156,7 @@ export function DataTable<TData>({
                                 <TableRow>
                                     {table.getHeaderGroups()[0].headers.map(header => (
                                         <TableCell key={header.id}
-                                                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400">
+                                                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-sm dark:text-gray-400">
                                             {header.column.getCanFilter() ? (
                                                 <input
                                                     type="text"
@@ -176,7 +176,7 @@ export function DataTable<TData>({
                                         {row.getVisibleCells().map(cell => (
                                             <TableCell key={cell.id} className="px-5 py-4 sm:px-6 text-start">
                                                 <div>
-                        <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                        <span className="block font-normal text-gray-800 text-theme-md dark:text-white/90">
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </span>
                                                 </div>
@@ -208,7 +208,7 @@ export function DataTable<TData>({
                                 <button
                                     onClick={() => setPage(page - 1)}
                                     disabled={page === 0}
-                                    className="text-black text-4xl disabled:text-gray-300"
+                                    className="text-black  disabled:text-gray-300"
                                 >
                                     ‹
                                 </button>
@@ -233,7 +233,7 @@ export function DataTable<TData>({
                                 <button
                                     onClick={() => setPage(page + 1)}
                                     disabled={(page + 1) * pageSize >= total}
-                                    className="text-black text-4xl disabled:text-gray-300"
+                                    className="text-black disabled:text-gray-300"
                                 >
                                     ›
                                 </button>

@@ -54,9 +54,55 @@ export const POST = async (request) => {
 
 export const GET = async (request) => {
     try {
-        const data = await User.findAll();
-        return new Response(JSON.stringify({message: 'success', data}), {status: 200});
+        const { searchParams } = new URL(request.url);
+
+        const page = parseInt(searchParams.get("_page") || "1");
+        const limit = parseInt(searchParams.get("_limit") || "10");
+        const offset = (page - 1) * limit;
+        const sortField = searchParams.get("_sort") || "id";
+        const order = searchParams.get("_order") === "desc" ? "DESC" : "ASC";
+
+        // Handle selected fields like ?fields=name,email
+        const fields = searchParams.get("_fields");
+        const attributes = fields ? fields.split(",") : ['id', 'name', 'email','status', 'created_at', 'updated_at'];
+
+        // List of filterable columns (you can add more if needed)
+        const filterableFields = ["id", "name", "email", "status", "created_at", "updated_at"];
+
+        const where = {};
+
+        filterableFields.forEach((field) => {
+            const value = searchParams.get(field);
+            if (value !== null) {
+                where[field] = value;
+            }
+        });
+
+
+        const total = await User.count({ where });
+
+        const data = await User.findAll({
+            attributes,
+            where,
+            limit,
+            offset,
+            order: [[sortField, order]], // You can also allow sorting by other fields if needed
+        });
+
+        const response =  new Response(JSON.stringify({ message: "success", data }), {
+            status: 200,
+        });
+
+        // Set x-total-count header
+        response.headers.set("x-total-count", total.toString());
+
+        return response;
+
     } catch (error) {
-        return new Response(JSON.stringify({message: 'Something went wrong!', error: error}), {status: 500});
+        console.error("Error fetching users:", error);
+        return new Response(
+            JSON.stringify({ message: "Something went wrong!", error }),
+            { status: 500 }
+        );
     }
-}
+};

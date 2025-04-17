@@ -13,6 +13,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AlertModal from "@/components/ui/modal/AlertModal";
+import Badge from "@/components/ui/badge/Badge";
+import {formatDateTime} from "@/lib/utils";
 
 
 type User = {
@@ -72,8 +74,8 @@ export default function UsersTable() {
             params[f.id] = f.value;
         });
 
-        const res = await api.get("/users", { params });
-        setData(res.data);
+        const res = await api.get("/api/admin/users", { params });
+        setData(res.data.data);
         setTotal(Number(res.headers["x-total-count"]) || 100);
     };
 
@@ -94,6 +96,27 @@ export default function UsersTable() {
         { accessorKey: "id", header: "ID" },
         { accessorKey: "name", header: "Name" },
         { accessorKey: "email", header: "Email" },
+        { accessorKey: "status", header: "Status",
+            cell: ({ row }) => (
+                <div className="flex w-full justify-center">
+                    <Badge size={'md'} variant={'solid'} color={row.getValue('status') == true ? 'success' : 'error'}>{row.getValue('status') == true ? 'Active' : 'Inactive'}</Badge>
+                </div>
+            ),
+        },
+        { accessorKey: "created_at", header: "Created at" ,
+            cell: ({ row }) => (
+                <div className="flex w-full justify-start">
+                    <span>{ formatDateTime(row.getValue('created_at'))}</span>
+                </div>
+                ),
+        },
+        { accessorKey: "updated_at", header: "Updated at" ,
+            cell: ({ row }) => (
+                <div className="flex w-full justify-start">
+                    <span>{formatDateTime(row.getValue('updated_at'))}</span>
+                </div>
+            ),
+        },
         {
             id: "actions",
             header: "Actions",

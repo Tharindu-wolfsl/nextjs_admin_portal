@@ -15,7 +15,7 @@ module.exports = {
             // Update only the `updated_at` field
             await queryInterface.bulkUpdate('roles', {updated_at: adminRole.updated_at}, {id: id});
         } else {
-            // Insert a new admin user
+            // Insert a new admin users
             await queryInterface.bulkInsert('roles', [{...adminRole, created_at: new Date()}]);
         }
     },
